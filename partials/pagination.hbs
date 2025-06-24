@@ -1,0 +1,34 @@
+{{! Pagination Component }}
+{{#if pagination}}
+<nav class="pagination" role="navigation" aria-label="Pagination">
+    {{#if pagination.prev}}
+        <a href="{{pagination.prev}}" class="pagination-prev" rel="prev">
+            <span class="pagination-icon">←</span>
+            <span class="pagination-label">{{t "Newer Posts"}}</span>
+        </a>
+    {{else}}
+        <span class="pagination-prev pagination-disabled">
+            <span class="pagination-icon">←</span>
+            <span class="pagination-label">{{t "Newer Posts"}}</span>
+        </span>
+    {{/if}}
+    
+    <div class="pagination-info">
+        <span class="pagination-current">{{pagination.page}}</span>
+        <span class="pagination-separator">{{t "of"}}</span>
+        <span class="pagination-total">{{pagination.pages}}</span>
+    </div>
+    
+    {{#if pagination.next}}
+        <a href="{{pagination.next}}" class="pagination-next" rel="next">
+            <span class="pagination-label">{{t "Older Posts"}}</span>
+            <span class="pagination-icon">→</span>
+        </a>
+    {{else}}
+        <span class="pagination-next pagination-disabled">
+            <span class="pagination-label">{{t "Older Posts"}}</span>
+            <span class="pagination-icon">→</span>
+        </span>
+    {{/if}}
+</nav>
+{{/if}}
