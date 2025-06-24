@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{@site.lang}}"{{#match @custom.body_font "Elegant serif"}} class="font-serif"{{/match}}{{#match @custom.body_font "Classic sans-serif"}} class="font-sans-alt"{{/match}}>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{meta_title}}</title>
+    <meta name="description" content="{{meta_description}}">
+    <meta name="generator" content="Ghost {{@version}}">
+    
+    {{! Favicon }}
+    <link rel="icon" type="image/svg+xml" href="{{asset 'images/favicon.svg'}}">
+    <link rel="icon" type="image/png" href="{{asset 'images/favicon.png'}}">
+    
+    {{! Main Stylesheet - use built version if available, fallback to source }}
+    {{#if (asset "built/screen.css")}}
+    <link rel="stylesheet" type="text/css" href="{{asset 'built/screen.css'}}">
+    {{else}}
+    <link rel="stylesheet" type="text/css" href="{{asset 'css/screen.css'}}">
+    {{/if}}
+    
+    {{! Custom accent color }}
+    {{#if @custom.accent_color}}
+    <style>
+        :root {
+            --accent-color: {{@custom.accent_color}};
+        }
+    </style>
+    {{/if}}
+    
+    {{! Ghost head - includes Ghost outputs: script tags, meta tags, structured data }}
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}{{#if @custom.enable_smooth_scroll}} smooth-scroll{{/if}}">
+    
+    {{! Site Header }}
+    {{> header}}
+    
+    {{! Main Content }}
+    <main id="site-main" class="site-main">
+        {{{body}}}
+    </main>
+    
+    {{! Site Footer }}
+    {{> footer}}
+    
+    {{! Donation Floating Button }}
+    {{#if @custom.donation_url}}
+    <div class="donation-float">
+        <a href="{{@custom.donation_url}}" class="donation-btn" target="_blank" rel="noopener">
+            🌲 Support Forest Edge
+        </a>
+    </div>
+    {{/if}}
+    
+    {{! Theme JavaScript }}
+    {{#if (asset "built/main.min.js")}}
+    <script src="{{asset 'built/main.min.js'}}"></script>
+    {{else}}
+    <script src="{{asset 'js/main.js'}}"></script>
+    {{/if}}
+    
+    {{! Smooth scroll animation library }}
+    {{#if @custom.enable_smooth_scroll}}
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    {{/if}}
+    
+    {{! Ghost foot - includes Ghost JavaScript for members, analytics, search }}
+    {{ghost_foot}}
+</body>
+</html>
