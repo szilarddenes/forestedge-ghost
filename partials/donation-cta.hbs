@@ -1,0 +1,41 @@
+{{! Donation Call-to-Action Component }}
+{{#if @custom.donation_url}}
+<aside class="donation-cta">
+    <div class="donation-cta-content">
+        
+        <div class="donation-cta-icon">
+            🌲
+        </div>
+        
+        <div class="donation-cta-text">
+            <h3 class="donation-cta-title">Support Forest Edge</h3>
+            <p class="donation-cta-description">
+                Help us build Hungary's first tech-enabled ecovillage. Every contribution helps document this journey and inspire others to build sustainable communities.
+            </p>
+        </div>
+        
+        <div class="donation-cta-actions">
+            <a href="{{@custom.donation_url}}" class="donation-cta-button" target="_blank" rel="noopener">
+                🌲 Support Our Mission
+            </a>
+            
+            {{#if @custom.youtube_channel}}
+            <a href="{{@custom.youtube_channel}}" class="donation-cta-secondary" target="_blank" rel="noopener">
+                📺 Watch Our Journey
+            </a>
+            {{/if}}
+        </div>
+        
+        {{! Progress Indicator }}
+        {{#if @custom.construction_progress}}
+        <div class="donation-progress">
+            <div class="donation-progress-bar">
+                <div class="donation-progress-fill" style="width: {{@custom.construction_progress}}%"></div>
+            </div>
+            <span class="donation-progress-text">{{@custom.construction_progress}}% Complete</span>
+        </div>
+        {{/if}}
+        
+    </div>
+</aside>
+{{/if}}

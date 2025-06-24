@@ -1,0 +1,61 @@
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            
+            {{! Site Logo/Title }}
+            <div class="site-branding">
+                {{#if @site.logo}}
+                <a href="{{@site.url}}" class="site-logo">
+                    <img src="{{@site.logo}}" alt="{{@site.title}}">
+                </a>
+                {{else}}
+                <a href="{{@site.url}}" class="site-title-link">
+                    <h1 class="site-title">{{@site.title}}</h1>
+                </a>
+                {{/if}}
+            </div>
+            
+            {{! Main Navigation }}
+            <nav class="site-nav">
+                {{navigation}}
+                
+                {{! Search Toggle }}
+                <button class="search-toggle" data-ghost-search>
+                    <span class="search-icon">🔍</span>
+                    <span class="search-text">Search</span>
+                </button>
+                
+                {{! Mobile Menu Toggle }}
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span class="menu-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+            </nav>
+            
+        </div>
+    </div>
+    
+    {{! Mobile Navigation Overlay }}
+    <div class="mobile-nav-overlay">
+        <div class="mobile-nav-content">
+            {{navigation}}
+            
+            {{! Mobile YouTube Link }}
+            {{#if @custom.youtube_channel}}
+            <a href="{{@custom.youtube_channel}}" class="mobile-youtube-link" target="_blank" rel="noopener">
+                📺 Forest Edge Chronicles
+            </a>
+            {{/if}}
+            
+            {{! Mobile Donation Link }}
+            {{#if @custom.donation_url}}
+            <a href="{{@custom.donation_url}}" class="mobile-donation-link" target="_blank" rel="noopener">
+                🌲 Support Our Journey
+            </a>
+            {{/if}}
+        </div>
+    </div>
+</header>

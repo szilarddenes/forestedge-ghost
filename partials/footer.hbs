@@ -1,0 +1,94 @@
+<footer class="site-footer">
+    <div class="container">
+        
+        {{! Footer Content }}
+        <div class="footer-content">
+            
+            {{! Site Info }}
+            <div class="footer-section footer-about">
+                <h3 class="footer-title">{{@site.title}}</h3>
+                <p class="footer-description">{{@site.description}}</p>
+                
+                {{! Social Links }}
+                <div class="footer-social">
+                    {{#if @custom.youtube_channel}}
+                    <a href="{{@custom.youtube_channel}}" target="_blank" rel="noopener" class="social-link social-youtube">
+                        <span>📺</span> YouTube
+                    </a>
+                    {{/if}}
+                    
+                    {{#if @site.twitter}}
+                    <a href="{{twitter_url}}" target="_blank" rel="noopener" class="social-link social-twitter">
+                        <span>🐦</span> Twitter
+                    </a>
+                    {{/if}}
+                    
+                    {{#if @site.facebook}}
+                    <a href="{{facebook_url}}" target="_blank" rel="noopener" class="social-link social-facebook">
+                        <span>📘</span> Facebook
+                    </a>
+                    {{/if}}
+                </div>
+            </div>
+            
+            {{! Recent Posts }}
+            <div class="footer-section footer-posts">
+                <h3 class="footer-title">Recent Updates</h3>
+                {{#get "posts" limit="3"}}
+                <div class="footer-posts-list">
+                    {{#foreach posts}}
+                    <article class="footer-post">
+                        <h4 class="footer-post-title">
+                            <a href="{{url}}">{{title}}</a>
+                        </h4>
+                        <time class="footer-post-date">{{date format="MMM DD"}}</time>
+                    </article>
+                    {{/foreach}}
+                </div>
+                {{/get}}
+            </div>
+            
+            {{! Support Section }}
+            <div class="footer-section footer-support">
+                <h3 class="footer-title">Support Forest Edge</h3>
+                <p class="footer-support-text">Help us build Hungary's first tech-enabled ecovillage and document the journey to financial independence.</p>
+                
+                {{#if @custom.donation_url}}
+                <a href="{{@custom.donation_url}}" class="footer-support-btn" target="_blank" rel="noopener">
+                    🌲 Support Our Mission
+                </a>
+                {{/if}}
+                
+                <div class="footer-stats">
+                    <div class="footer-stat">
+                        <span class="stat-number">{{total_posts}}</span>
+                        <span class="stat-label">Days Documented</span>
+                    </div>
+                    {{#if @custom.construction_progress}}
+                    <div class="footer-stat">
+                        <span class="stat-number">{{@custom.construction_progress}}%</span>
+                        <span class="stat-label">Complete</span>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            
+        </div>
+        
+        {{! Footer Bottom }}
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                <p>&copy; {{date format="YYYY"}} {{@site.title}}. Powered by <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>.</p>
+                <p class="footer-tagline">Building sustainable communities, one day at a time. 🌲</p>
+            </div>
+            
+            {{! Secondary Navigation }}
+            {{#if @site.secondary_navigation}}
+            <nav class="footer-nav">
+                {{navigation type="secondary"}}
+            </nav>
+            {{/if}}
+        </div>
+        
+    </div>
+</footer>

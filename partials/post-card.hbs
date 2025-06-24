@@ -1,0 +1,77 @@
+{{! Post Card Component - Snook Style }}
+<article class="post-card{{#if @first}} post-card-first{{/if}}{{#if featured}} post-card-featured{{/if}}{{#match size "featured"}} post-card-large{{/match}}{{#match size "small"}} post-card-small{{/match}}">
+    
+    {{! Post Image }}
+    {{#if feature_image}}
+    <a href="{{url}}" class="post-card-image-link">
+        <div class="post-card-image">
+            <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+            
+            {{! Featured Badge }}
+            {{#if featured}}
+            <span class="post-card-featured-badge">Featured</span>
+            {{/if}}
+            
+            {{! Reading Time Overlay }}
+            <div class="post-card-overlay">
+                <span class="post-card-reading-time">{{reading_time}}</span>
+            </div>
+        </div>
+    </a>
+    {{/if}}
+    
+    {{! Post Content }}
+    <div class="post-card-content">
+        
+        {{! Post Meta }}
+        <div class="post-card-meta">
+            {{#if primary_tag}}
+            <a href="{{primary_tag.url}}" class="post-card-tag">{{primary_tag.name}}</a>
+            {{/if}}
+            
+            <time class="post-card-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM DD, YYYY"}}</time>
+        </div>
+        
+        {{! Post Title }}
+        <h2 class="post-card-title">
+            <a href="{{url}}">{{title}}</a>
+        </h2>
+        
+        {{! Post Excerpt }}
+        {{#if excerpt}}
+        <div class="post-card-excerpt">
+            <p>{{excerpt words="25"}}</p>
+        </div>
+        {{/if}}
+        
+        {{! Post Footer }}
+        <footer class="post-card-footer">
+            
+            {{! Author Info }}
+            {{#if @custom.show_author_bio}}
+            {{#primary_author}}
+            <div class="post-card-author">
+                {{#if profile_image}}
+                <img src="{{img_url profile_image size="xs"}}" alt="{{name}}" class="post-card-author-avatar">
+                {{/if}}
+                
+                <div class="post-card-author-info">
+                    <span class="post-card-author-name">{{name}}</span>
+                    {{#if bio}}
+                    <span class="post-card-author-bio">{{bio words="10"}}</span>
+                    {{/if}}
+                </div>
+            </div>
+            {{/primary_author}}
+            {{/if}}
+            
+            {{! Read More Link }}
+            <a href="{{url}}" class="post-card-read-more">
+                Read More <span class="read-more-arrow">→</span>
+            </a>
+            
+        </footer>
+        
+    </div>
+    
+</article>
