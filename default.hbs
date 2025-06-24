@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="{{@site.lang}}"{{#match @custom.body_font "Elegant serif"}} class="font-serif"{{/match}}{{#match @custom.body_font "Classic sans-serif"}} class="font-sans-alt"{{/match}}>
+<html lang="{{@site.locale}}"{{#match @custom.body_font "Elegant serif"}} class="font-serif"{{/match}}{{#match @custom.body_font "Classic sans-serif"}} class="font-sans-alt"{{/match}}>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title}}</title>
-    <meta name="description" content="{{meta_description}}">
-    <meta name="generator" content="Ghost {{@version}}">
+    {{#is "home"}}
+    <meta name="description" content="{{@site.description}}">
+    {{else}}
+    {{#if custom_excerpt}}
+    <meta name="description" content="{{custom_excerpt}}">
+    {{else}}
+    {{#if excerpt}}
+    <meta name="description" content="{{excerpt}}">
+    {{/if}}
+    {{/if}}
+    {{/is}}
+    <meta name="generator" content="Ghost">
     
     {{! Favicon }}
     <link rel="icon" type="image/svg+xml" href="{{asset 'images/favicon.svg'}}">

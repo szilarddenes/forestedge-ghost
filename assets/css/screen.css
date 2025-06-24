@@ -72,6 +72,40 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Ghost Editor Content Width Classes */
+.kg-width-wide {
+    position: relative;
+    width: 85vw;
+    min-width: 100%;
+    max-width: calc(1200px + 10vw);
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translateX(-50%);
+}
+
+.kg-width-full {
+    position: relative;
+    width: 100vw;
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translateX(-50%);
+}
+
+/* Ensure proper spacing for wide and full images */
+.kg-width-wide img,
+.kg-width-full img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Add some vertical spacing */
+.kg-width-wide,
+.kg-width-full {
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
 /* Complete implementation of all styles from previous CSS files combined */
 /* This would be the full implementation - truncated for brevity */
 /* All styles from both screen.css and screen-continued.css would be here */
