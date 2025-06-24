@@ -1,0 +1,137 @@
+{{!< default}}
+
+{{! Hero Section - Inspired by Snook's bold featured posts }}
+{{#match @custom.homepage_style "Featured posts"}}
+<section class="hero-section">
+    {{#get "posts" filter="featured:true" limit="1"}}
+        {{#foreach posts}}
+        <article class="hero-post">
+            {{#if feature_image}}
+            <div class="hero-image">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager">
+                <div class="hero-overlay"></div>
+            </div>
+            {{/if}}
+            
+            <div class="hero-content">
+                <div class="container">
+                    {{#if primary_tag}}
+                    <span class="hero-tag">{{primary_tag.name}}</span>
+                    {{/if}}
+                    
+                    <h1 class="hero-title">
+                        <a href="{{url}}">{{title}}</a>
+                    </h1>
+                    
+                    {{#if excerpt}}
+                    <p class="hero-excerpt">{{excerpt words="30"}}</p>
+                    {{/if}}
+                    
+                    <div class="hero-meta">
+                        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM DD, YYYY"}}</time>
+                        <span class="reading-time">{{reading_time}}</span>
+                    </div>
+                    
+                    <a href="{{url}}" class="hero-cta">Read Full Story</a>
+                </div>
+            </div>
+        </article>
+        {{/foreach}}
+    {{/get}}
+</section>
+{{/match}}
+
+{{! Site Info Section - Forest Edge specific }}
+<section class="site-info">
+    <div class="container">
+        <div class="site-info-content">
+            <div class="site-intro">
+                <h2 class="site-title">{{@site.title}}</h2>
+                <p class="site-description">{{@site.description}}</p>
+                
+                {{#if @custom.youtube_channel}}
+                <a href="{{@custom.youtube_channel}}" class="youtube-link" target="_blank" rel="noopener">
+                    📺 Watch the Journey on YouTube
+                </a>
+                {{/if}}
+            </div>
+            
+            {{! Construction Progress Stats }}
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{total_posts}}</span>
+                    <span class="stat-label">Days Documented</span>
+                </div>
+                {{#if @custom.construction_progress}}
+                <div class="stat-item">
+                    <span class="stat-number">{{@custom.construction_progress}}%</span>
+                    <span class="stat-label">Construction Progress</span>
+                </div>
+                {{/if}}
+                <div class="stat-item">
+                    <span class="stat-number">5M</span>
+                    <span class="stat-label">HUF Budget</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{! Homepage Circles - Snook feature adaptation }}
+{{#match @custom.homepage_circles "Tags"}}
+{{#get "tags" limit="6" filter="visibility:public"}}
+{{#if tags}}
+<section class="homepage-circles tags-circles">
+    <div class="container">
+        <h3 class="circles-title">Explore Topics</h3>
+        <div class="circles-grid">
+            {{#foreach tags}}
+            <a href="{{url}}" class="circle-item" data-circle="{{@index}}">
+                <div class="circle-content">
+                    <span class="circle-name">{{name}}</span>
+                    <span class="circle-count">{{plural count.posts empty='No posts' singular='% post' plural='% posts'}}</span>
+                </div>
+            </a>
+            {{/foreach}}
+        </div>
+    </div>
+</section>
+{{/if}}
+{{/get}}
+{{/match}}
+
+{{! Featured Posts Grid - Snook style }}
+<section class="featured-posts">
+    <div class="container">
+        <h3 class="section-title">Featured Stories</h3>
+        
+        {{#get "posts" filter="featured:true" limit="3" as |featured_posts|}}
+        {{#if featured_posts}}
+        <div class="posts-grid featured-grid">
+            {{#foreach featured_posts}}
+                {{> post-card size="featured"}}
+            {{/foreach}}
+        </div>
+        {{/if}}
+        {{/get}}
+    </div>
+</section>
+
+{{! Latest Posts - Main content area }}
+<section class="latest-posts">
+    <div class="container">
+        <div class="posts-header">
+            <h3 class="section-title">Latest Posts</h3>
+            <span class="section-subtitle">Our Selection</span>
+        </div>
+        
+        <div class="posts-grid{{#match @custom.card_style "Creative"}} creative-cards{{/match}}">
+            {{#foreach posts}}
+                {{> post-card}}
+            {{/foreach}}
+        </div>
+        
+        {{! Pagination }}
+        {{pagination}}
+    </div>
+</section>

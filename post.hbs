@@ -1,0 +1,152 @@
+{{!< default}}
+
+<article class="post {{post_class}}">
+    
+    {{! Post Header - Multiple styles like Snook }}
+    <header class="post-header{{#match @custom.post_header_style "Wide"}} header-wide{{/match}}{{#match @custom.post_header_style "Wide Centered"}} header-wide header-centered{{/match}}{{#match @custom.post_header_style "Narrow"}} header-narrow{{/match}}{{#match @custom.post_header_style "Narrow Centered"}} header-narrow header-centered{{/match}}{{#match @custom.post_header_style "Background Media"}} header-background{{/match}}{{#match @custom.post_header_style "Background Media Centered"}} header-background header-centered{{/match}}">
+        
+        {{#if feature_image}}
+        {{#match @custom.post_header_style "Background Media,Background Media Centered"}}
+        <div class="post-feature-image-bg" style="background-image: url({{img_url feature_image size='xl'}})">
+            <div class="post-header-overlay"></div>
+        {{else}}
+        <div class="post-feature-image">
+            <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager">
+        {{/match}}
+        {{/if}}
+        
+        <div class="post-header-content{{#unless feature_image}} no-image{{/unless}}">
+            <div class="container{{#match @custom.post_header_style "Narrow,Narrow Centered"}} container-narrow{{/match}}">
+                
+                {{! Post Meta }}
+                <div class="post-meta">
+                    {{#if primary_tag}}
+                    <a href="{{primary_tag.url}}" class="post-tag">{{primary_tag.name}}</a>
+                    {{/if}}
+                    
+                    <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM DD, YYYY"}}</time>
+                    
+                    <span class="post-reading-time">{{reading_time}}</span>
+                </div>
+                
+                {{! Post Title }}
+                <h1 class="post-title">{{title}}</h1>
+                
+                {{! Post Excerpt }}
+                {{#if excerpt}}
+                <p class="post-excerpt">{{excerpt}}</p>
+                {{/if}}
+                
+                {{! Author Info }}
+                {{#if @custom.show_author_bio}}
+                <div class="post-author">
+                    {{#primary_author}}
+                    <div class="author-card">
+                        {{#if profile_image}}
+                        <img src="{{img_url profile_image size="s"}}" alt="{{name}}" class="author-avatar">
+                        {{/if}}
+                        
+                        <div class="author-info">
+                            <h4 class="author-name">
+                                <a href="{{url}}">{{name}}</a>
+                            </h4>
+                            {{#if bio}}
+                            <p class="author-bio">{{bio}}</p>
+                            {{/if}}
+                        </div>
+                    </div>
+                    {{/primary_author}}
+                </div>
+                {{/if}}
+                
+            </div>
+        </div>
+        
+        {{#if feature_image}}
+        </div>
+        {{/if}}
+        
+    </header>
+    
+    {{! Post Content }}
+    <section class="post-content">
+        <div class="container{{#match @custom.post_header_style "Narrow,Narrow Centered"}} container-narrow{{/match}}">
+            <div class="post-content-body">
+                {{content}}
+            </div>
+        </div>
+    </section>
+    
+    {{! Post Footer }}
+    <footer class="post-footer">
+        <div class="container{{#match @custom.post_header_style "Narrow,Narrow Centered"}} container-narrow{{/match}}">
+            
+            {{! Tags }}
+            {{#if tags}}
+            <div class="post-tags">
+                <span class="tags-label">Tagged in:</span>
+                {{#foreach tags}}
+                <a href="{{url}}" class="tag-link">{{name}}</a>
+                {{/foreach}}
+            </div>
+            {{/if}}
+            
+            {{! Forest Edge Support CTA }}
+            {{> donation-cta}}
+            
+            {{! Social Sharing }}
+            <div class="post-sharing">
+                <h4 class="sharing-title">Share this post</h4>
+                <div class="sharing-buttons">
+                    <a href="https://twitter.com/intent/tweet?url={{url absolute="true"}}&text={{encode title}}" target="_blank" rel="noopener" class="share-btn share-twitter">
+                        <span class="share-icon">🐦</span>
+                        <span class="share-text">Twitter</span>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" target="_blank" rel="noopener" class="share-btn share-facebook">
+                        <span class="share-icon">📘</span>
+                        <span class="share-text">Facebook</span>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute="true"}}" target="_blank" rel="noopener" class="share-btn share-linkedin">
+                        <span class="share-icon">💼</span>
+                        <span class="share-text">LinkedIn</span>
+                    </a>
+                    
+                    <button class="share-btn share-copy" data-url="{{url absolute='true'}}">
+                        <span class="share-icon">🔗</span>
+                        <span class="share-text">Copy Link</span>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+    
+</article>
+
+{{! Related Posts }}
+<section class="related-posts">
+    <div class="container">
+        <h3 class="section-title">Related Stories</h3>
+        
+        {{#get "posts" filter="tag:{{primary_tag.slug}}+id:-{{id}}" limit="3" as |related|}}
+        {{#if related}}
+        <div class="posts-grid related-grid">
+            {{#foreach related}}
+                {{> post-card size="small"}}
+            {{/foreach}}
+        </div>
+        {{else}}
+        {{! Fallback to latest posts if no related posts found }}
+        {{#get "posts" filter="id:-{{id}}" limit="3"}}
+        <div class="posts-grid related-grid">
+            {{#foreach posts}}
+                {{> post-card size="small"}}
+            {{/foreach}}
+        </div>
+        {{/get}}
+        {{/if}}
+        {{/get}}
+    </div>
+</section>
