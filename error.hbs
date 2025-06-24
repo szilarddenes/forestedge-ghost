@@ -1,0 +1,72 @@
+{{!< default}}
+
+{{! 404 Error Page }}
+<div class="error-page">
+    <div class="container">
+        <div class="error-content">
+            
+            {{! Error Icon }}
+            <div class="error-icon">
+                🌲🔍
+            </div>
+            
+            {{! Error Message }}
+            <div class="error-message">
+                <h1 class="error-title">Lost in the Forest?</h1>
+                <p class="error-description">
+                    The page you're looking for seems to have wandered off into the woods. 
+                    Don't worry, even the best explorers get lost sometimes!
+                </p>
+            </div>
+            
+            {{! Error Actions }}
+            <div class="error-actions">
+                <a href="{{@site.url}}" class="error-home-link">
+                    🏠 Return to Forest Edge
+                </a>
+                
+                <button class="error-search-link" data-ghost-search>
+                    🔍 Search Our Content
+                </button>
+            </div>
+            
+            {{! Helpful Links }}
+            <div class="error-suggestions">
+                <h3 class="suggestions-title">While you're here, check out:</h3>
+                
+                {{! Popular Posts }}
+                {{#get "posts" filter="featured:true" limit="3"}}
+                <div class="suggestions-grid">
+                    {{#foreach posts}}
+                    <article class="suggestion-item">
+                        {{#if feature_image}}
+                        <div class="suggestion-image">
+                            <img src="{{img_url feature_image size="s"}}" alt="{{title}}">
+                        </div>
+                        {{/if}}
+                        
+                        <div class="suggestion-content">
+                            <h4 class="suggestion-title">
+                                <a href="{{url}}">{{title}}</a>
+                            </h4>
+                            <p class="suggestion-excerpt">{{excerpt words="15"}}</p>
+                        </div>
+                    </article>
+                    {{/foreach}}
+                </div>
+                {{/get}}
+                
+                {{! Popular Tags }}
+                {{#get "tags" limit="5" filter="visibility:public"}}
+                <div class="suggestions-tags">
+                    <span class="tags-label">Popular topics:</span>
+                    {{#foreach tags}}
+                    <a href="{{url}}" class="suggestion-tag">{{name}}</a>
+                    {{/foreach}}
+                </div>
+                {{/get}}
+            </div>
+            
+        </div>
+    </div>
+</div>

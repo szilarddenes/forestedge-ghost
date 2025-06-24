@@ -1,0 +1,48 @@
+{{!< default}}
+
+{{! Tag Archive Page }}
+<header class="tag-header">
+    <div class="container">
+        <div class="tag-header-content">
+            
+            {{! Tag Info }}
+            <div class="tag-info">
+                <h1 class="tag-title">{{tag.name}}</h1>
+                
+                {{#if tag.description}}
+                <p class="tag-description">{{tag.description}}</p>
+                {{/if}}
+                
+                <div class="tag-meta">
+                    <span class="tag-count">{{plural pagination.total empty='No posts' singular='% post' plural='% posts'}}</span>
+                    {{#if tag.feature_image}}
+                    <span class="tag-divider">•</span>
+                    <span class="tag-type">Topic</span>
+                    {{/if}}
+                </div>
+            </div>
+            
+            {{! Tag Feature Image }}
+            {{#if tag.feature_image}}
+            <div class="tag-feature-image">
+                <img src="{{img_url tag.feature_image size="l"}}" alt="{{tag.name}}">
+            </div>
+            {{/if}}
+            
+        </div>
+    </div>
+</header>
+
+{{! Tag Posts }}
+<section class="tag-posts">
+    <div class="container">
+        <div class="posts-grid{{#match @custom.card_style "Creative"}} creative-cards{{/match}}">
+            {{#foreach posts}}
+                {{> post-card}}
+            {{/foreach}}
+        </div>
+        
+        {{! Pagination }}
+        {{pagination}}
+    </div>
+</section>
